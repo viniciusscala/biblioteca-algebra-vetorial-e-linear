@@ -1,5 +1,5 @@
 from estruturas import Vetor
-from math import sqrt, acos
+from math import sqrt
 
 def produtoEscalar(v1, v2):
     return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z)
@@ -22,3 +22,8 @@ def normalize(vetor):
 
 def cosseno(v1, v2):
     return produtoEscalar(v1, v2) / (norma(v1) * norma(v2))
+
+def projecao(v1, v2):
+    escalar = produtoEscalar(v1, v2) / produtoEscalar(v2, v2)
+
+    return Vetor(escalar * v2.x, escalar * v2.y, escalar * v2.z)
