@@ -34,3 +34,6 @@ def produtoVetorial(v1, v2):
     z = (v1.x * v2.y) - (v1.y * v2.x)
 
     return Vetor(x, y, z)
+
+def eLI(v1, v2, v3):
+    return produtoEscalar(v1, produtoVetorial(v2, v3)) != 0
