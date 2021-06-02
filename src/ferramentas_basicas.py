@@ -21,6 +21,4 @@ def normalize(vetor):
     return Vetor(a, b, c)
 
 def cosseno(v1, v2):
-    cosseno = produtoEscalar(v1, v2) / (norma(v1) * norma(v2))
-
-    return acos(cosseno)
+    return produtoEscalar(v1, v2) / (norma(v1) * norma(v2))
