@@ -1,3 +1,4 @@
+from estruturas import Vetor
 from math import sqrt
 
 def norma(vetor):
