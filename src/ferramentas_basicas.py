@@ -1,6 +1,9 @@
 from estruturas import Vetor
 from math import sqrt
 
+def produtoEscalar(v1, v2):
+    return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z)
+
 def norma(vetor):
     a = vetor.x ** 2
     b = vetor.y ** 2
