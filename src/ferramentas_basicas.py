@@ -9,10 +9,10 @@ def norma(vetor):
     return sqrt(a+b+c)
 
 def normalize(vetor):
-    fator_de_correcao = norma(vetor)
+    norma = norma(vetor)
 
-    a = vetor.x / fator_de_correcao
-    b = vetor.y / fator_de_correcao
-    c = vetor.z / fator_de_correcao
+    a = vetor.x / norma
+    b = vetor.y / norma
+    c = vetor.z / norma
 
     return Vetor(a, b, c)
