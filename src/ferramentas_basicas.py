@@ -35,5 +35,12 @@ def produtoVetorial(v1, v2):
 
     return Vetor(x, y, z)
 
+def saoParalelos(v1, v2):
+    pV = produtoVetorial(v1, v2)
+    return pV.x == 0 and pV.y == 0 and pV.z == 0
+
+def saoOrtogonais(v1, v2):
+    return produtoEscalar(v1, v2) == 0
+
 def eLI(v1, v2, v3):
     return produtoEscalar(v1, produtoVetorial(v2, v3)) != 0
