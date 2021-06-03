@@ -26,6 +26,12 @@ def produtoVetorial(v1, v2):
 
     return Vetor(x, y, z)
 
+def reflexao(v1, v2):
+    v3 = projecao(v1, v2)
+    aux = Vetor(v3.x - v1.x, v3.y - v1.y, v3.z - v1.z)
+
+    return Vetor(v3.x + aux.x, v3.y + aux.y, v3.z + aux.z)
+
 def saoParalelos(v1, v2):
     pV = produtoVetorial(v1, v2)
     return pV.x == 0 and pV.y == 0 and pV.z == 0
