@@ -1,6 +1,16 @@
 from estruturas import *
-from ferramentas_basicas import produtoEscalar, produtoVetorial, norma2, saoParalelos
+from ferramentas_basicas import dist_reta_a_reta, produtoEscalar, produtoVetorial, norma2, saoParalelos
 from math import sqrt
+
+def main():
+    reta = Reta(Ponto(1,-1,1), Vetor(-2,-3,3))
+    plano = Plano(Ponto(0,1,1), Vetor(3,-1,1))
+
+    retorno = intersecao(reta, plano)
+
+    print(retorno.ponto.x, retorno.ponto.y, retorno.ponto.z)
+    print(retorno.vetorDiretor.x, retorno.vetorDiretor.y, retorno.vetorDiretor.z)
+
 
 def intersecao(reta1, reta2):
     coordA = reta1.vetorDiretor
@@ -13,7 +23,10 @@ def intersecao(reta1, reta2):
     coordC = Ponto(coordC_x, coordC_y, coordC_z)
 
     if(saoParalelos(coordA, coordB)):
-        return None
+        if(dist_reta_a_reta(reta1, reta2) == 0):
+            return reta1
+        else: 
+            return None
 
     if (produtoEscalar(coordC, produtoVetorial(coordA,coordB)) != 0.0): # lines are not coplanar
         return None
@@ -35,7 +48,11 @@ def intersecao(reta, plano):
     escalar = produtoEscalar(reta.vetorDiretor, plano.vetorNormal)
 
     if(escalar == 0): #reta e plano sao paralelos
-        return None
+        w = Vetor(reta.ponto.x - plano.ponto.x, reta.ponto.y - plano.ponto.y, reta.ponto.z - plano.ponto.z)
+        n = -produtoEscalar(plano.vetorNormal, w)
+
+        if(n == 0): return reta # plano contem reta
+        else: return None
 
     w_x = reta.ponto.x - plano.ponto.x
     w_y = reta.ponto.y - plano.ponto.y
@@ -113,25 +130,25 @@ def intersecao(reta, triangulo):
     w0 = Vetor(reta.ponto.x-triangulo.p1.x, reta.ponto.y-triangulo.p1.y, reta.ponto.z-triangulo.p1.z) 
     a = -produtoEscalar(n, w0)
     b = produtoEscalar(n, reta.vetorDiretor)
-    if (abs(b) < zero):             # reta é paralela ao triangulo
+    if (abs(b) < zero):             # reta eh paralela ao triangulo
         if (a == 0):
             return reta             # reta esta no plano do triangulo
         else: 
-            return None             # Não tem intercecção
+            return None             # Não tem intersecão
 
     r = a/b
-    if (r < 0.0):                    # Sem intercecção
+    if (r < 0.0):                    # Sem intersecão
         return None
 
-    ipX = reta.ponto.x + (reta.vetorDiretor.xr)
-    ipY = reta.ponto.y + (reta.vetorDiretor.yr)
-    ipZ = reta.ponto.z + (reta.vetorDiretor.zr)
-    ip = Ponto(ipX, ipY, ipZ)       # ponto de intercecção entre a reta e PLANO do triangulo
+    ipX = reta.ponto.x + (reta.vetorDiretor.x * r)
+    ipY = reta.ponto.y + (reta.vetorDiretor.y * r)
+    ipZ = reta.ponto.z + (reta.vetorDiretor.z * r)
+    ip = Ponto(ipX, ipY, ipZ)       # ponto de intersecao entre a reta e PLANO do triangulo
 
     # checar se o ponto esta no triangulo
     uu = produtoEscalar(u, u)
     uv = produtoEscalar(u, v)
-    vv = produtoEscalar(u, v)
+    vv = produtoEscalar(v, v)
     w = Vetor(ip.x-triangulo.p1.x, ip.y-triangulo.p1.y, ip.z-triangulo.p1.z)
     wu = produtoEscalar(w, u)
     wv = produtoEscalar(w, v)
@@ -186,3 +203,6 @@ def intersecao(reta, esfera):
         return [iP_one, iP_two]
 
     return None
+
+if __name__ == '__main__':
+    main()
