@@ -6,3 +6,6 @@ def reflexao_reta(vetor, vetorDiretor):
 
 def reflexao(vetor):
     return Vetor(-1*vetor.x, -1*vetor.y, -1*vetor.z)
+
+def deformacao(vetor, fatorX, fatorY, fatorZ)
+    return Vetor(vetor.x * fatorX, vetor.y * fatorY, vetor.z * fatorZ)
