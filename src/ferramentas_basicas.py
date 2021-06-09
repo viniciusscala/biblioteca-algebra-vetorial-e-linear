@@ -4,6 +4,9 @@ from math import sqrt
 def produtoEscalar(v1, v2):
     return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z)
 
+def norma2(vetor):
+    return produtoEscalar(vetor, vetor)
+
 def norma(vetor):
     return sqrt(produtoEscalar(vetor, vetor))
 
