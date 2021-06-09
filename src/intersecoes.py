@@ -2,16 +2,6 @@ from estruturas import *
 from ferramentas_basicas import dist_reta_a_reta, produtoEscalar, produtoVetorial, norma2, saoParalelos
 from math import sqrt
 
-def main():
-    reta = Reta(Ponto(1,-1,1), Vetor(-2,-3,3))
-    plano = Plano(Ponto(0,1,1), Vetor(3,-1,1))
-
-    retorno = intersecao(reta, plano)
-
-    print(retorno.ponto.x, retorno.ponto.y, retorno.ponto.z)
-    print(retorno.vetorDiretor.x, retorno.vetorDiretor.y, retorno.vetorDiretor.z)
-
-
 def intersecao(reta1, reta2):
     coordA = reta1.vetorDiretor
     coordB = reta2.vetorDiretor
@@ -122,6 +112,7 @@ def intersecao(reta, triangulo):
 
     u = Vetor(triangulo.p2.x-triangulo.p1.x, triangulo.p2.y-triangulo.p1.y, triangulo.p2.z-triangulo.p1.z)
     v = Vetor(triangulo.p3.x-triangulo.p1.x, triangulo.p3.y-triangulo.p1.y, triangulo.p3.z-triangulo.p1.z)
+    y = Vetor(triangulo.p3.x-triangulo.p2.x, triangulo.p3.y-triangulo.p2.y, triangulo.p3.z-triangulo.p2.z)
     n = produtoVetorial(u, v)
 
     if(n == vetorZerado):            # Triangulo Deformado
@@ -131,8 +122,33 @@ def intersecao(reta, triangulo):
     a = -produtoEscalar(n, w0)
     b = produtoEscalar(n, reta.vetorDiretor)
     if (abs(b) < zero):             # reta eh paralela ao triangulo
-        if (a == 0):
-            return reta             # reta esta no plano do triangulo
+        if (a == 0):                # reta esta no plano do triangulo
+            retaP1P2 = Reta(triangulo.p1, u)
+            retaP1P3 = Reta(triangulo.p1, v)
+            retaP2P3 = Reta(triangulo.p2, y)
+
+            iP_p1p2 = intersecao(reta, retaP1P2)
+            iP_p1p3 = intersecao(reta, retaP1P3)
+            iP_p2p3 = intersecao(reta, retaP2P3)
+
+            if(type(iP_p1p2) is Reta):
+                return Segmento(triangulo.p1, triangulo.p2)
+            if(type(iP_p1p3) is Reta):
+                return Segmento(triangulo.p1, triangulo.p3)
+            if(type(iP_p2p3) is Reta):
+                return Segmento(triangulo.p2, triangulo.p3)
+            
+            if(iP_p1p2): 
+                ponto1 = iP_p1p2
+                if(iP_p1p3):
+                    ponto2 = iP_p1p3
+                else:
+                    ponto2 = iP_p2p3
+            else:
+                ponto1 = iP_p1p3
+                ponto2 = iP_p2p3
+            segmentoI = Segmento(ponto1, ponto2)
+            return segmentoI           
         else: 
             return None             # Não tem intersecão
 
@@ -203,6 +219,3 @@ def intersecao(reta, esfera):
         return [iP_one, iP_two]
 
     return None
-
-if __name__ == '__main__':
-    main()
