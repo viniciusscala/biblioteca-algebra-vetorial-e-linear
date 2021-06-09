@@ -4,6 +4,9 @@ from math import sqrt
 def produtoEscalar(v1, v2):
     return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z)
 
+def norma2(vetor):
+    return produtoEscalar(vetor, vetor)
+
 def norma(vetor):
     return sqrt(produtoEscalar(vetor, vetor))
 
@@ -18,6 +21,32 @@ def projecao(v1, v2):
     escalar = produtoEscalar(v1, v2) / produtoEscalar(v2, v2)
 
     return Vetor(escalar * v2.x, escalar * v2.y, escalar * v2.z)
+
+def dist_reta_a_reta(reta1, reta2):
+
+    u = reta1.vetorDiretor
+    v = reta2.vetorDiretor
+    w = Vetor(reta1.ponto.x-reta2.ponto.x, reta1.ponto.y-reta2.ponto.y, reta1.ponto.z-reta2.ponto.z)
+    a = produtoEscalar(u,u)        
+    b = produtoEscalar(u,v)
+    c = produtoEscalar(v,v)         
+    d = produtoEscalar(u,w)
+    e = produtoEscalar(v,w)
+    D = (a*c) - (b*b)        
+
+    if (D < 0.000001):     
+        sc = 0.0
+        tc = d/b if b>c else e/c   
+    
+    else:
+        sc = (b*e - c*d) / D
+        tc = (a*e - b*d) / D
+    
+    dPx = w.x + (sc * u.x) - (tc * v.x) 
+    dPy = w.y + (sc * u.y) - (tc * v.y) 
+    dPz = w.z + (sc * u.z) - (tc * v.z)
+
+    return norma(Vetor(dPx, dPy, dPz))   # return the closest distance
 
 def produtoVetorial(v1, v2):
     x = (v1.y * v2.z) - (v1.z * v2.y)
