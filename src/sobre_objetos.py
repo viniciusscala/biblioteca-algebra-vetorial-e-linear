@@ -1,84 +1,39 @@
-from estruturas import Plano, Reta, Vetor
-from ferramentas_basicas import normalize, saoOrtogonais, projecao
+from estruturas import *
+from ferramentas_basicas import saoParalelos, saoOrtogonais, projecao
 
-#vetorDiretorReta
 def diretor(reta):
-    reta = Reta(reta)
-    return Vetor(reta)
+    return reta.vetorDiretor
 
-#normalPlano
 def normal(plano):
-    plano = Plano(plano)
-    return normalize(Vetor)
+    return plano.vetorNormal
 
-#verificaParalelo
 def eParalelo (vetor,reta):
-    reta = Reta(reta)
-    vetor = Vetor(vetor)
+    return saoParalelos(vetor, reta.vetorDiretor)
 
-    if (vetor % reta) == 0:
-        return True
-    else:
-        return False
-
-#ortogonalPlano
 def eOrtogonal (vetor, plano):
-    vetor = Vetor(vetor)
-    plano = Plano(plano)
+    return saoParalelos(vetor, plano.vetorNormal)
 
-    if (normalize(plano)) == 0:
-        return True
-    else:
-        return False
+def projecao(vetor, reta):
+    return projecao(vetor, reta.vetorDiretor)
 
-#vetorProjetado
-def projecaoVR(vetor, reta):
-    vetor = Vetor(vetor)
-    reta = Reta(reta)
-
-    return projecao(vetor, reta)
-
-#projecaoVetorReta
-def projecaoVR(vetor, plano):
-    vetor = Vetor(vetor)
-    plano = Plano(plano)
-
-    return projecao(vetor,plano)
-
-#componenteOrt
+def projecao(vetor, plano):
+    
 def componenteOrtogonais(vetor, plano):
-    plano = Plano(plano)
-    vetor = Vetor(vetor)
+    return projecao(vetor, plano.vetorNormal)
 
-    if (saoOrtogonais(vetor, plano)) == 0:
-        return True
-    else:
-        return False
-
-#complementoRetaPlano
 def saoComplementosOrtogonais(reta, plano):
-    plano = Plano(plano)
-    reta = Reta(reta)
+    return saoParalelos(reta.vetorDiretor, plano.vetorNormal)
 
-    if (saoOrtogonais(reta, plano)) == 0:
-        return True
-    else:
-        return False
-
-#complementoPlanoReta
 def saoComplementosOrtogonais(plano, reta):
-    plano = Plano(plano)
-    reta = Reta(reta)
+    return saoParalelos(reta.vetorDiretor, plano.vetorNormal)
 
-    if (saoOrtogonais(plano, reta)) == 0:
-        return True
-    else:
-        return False
+def formaCartesiana(plano): 
+    a = plano.vetorNormal.x
+    b = plano.vetorNormal.y
+    c = plano.vetorNormal.z
+    d = -((a * plano.ponto.x) + (b * plano.ponto.y) + (c * plano.ponto.z))
 
-#????
-def formaCartesiana(plano):
-    plano = Plano(plano)
+    coeficientes = [a,b,c,d]
+    return coeficientes     
 
-#????
 def formaCartesiana(reta):
-    reta = Reta(reta)
