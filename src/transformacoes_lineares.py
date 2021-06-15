@@ -3,7 +3,7 @@ from estruturas import Vetor, Base
 from ferramentas_basicas import reflexao as reflexao_vetor, normalize, produtoVetorial
 
 def rotacao(vetor, angulo, sentido, reta):
-    v1 = reta.vetorDiretor
+    v1 = normalize(reta.vetorDiretor)
     v2 = normalize(Vetor(0, 1, - (v1.x/v1.z)))
     v3 = normalize(produtoVetorial(v1, v2))
     novaBase = Base(v1, v2, v3)
