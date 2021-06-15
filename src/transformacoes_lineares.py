@@ -1,5 +1,21 @@
-from estruturas import Vetor
-from ferramentas_basicas import reflexao as reflexao_vetor
+from math import cos, sin
+from estruturas import Vetor, Base
+from ferramentas_basicas import reflexao as reflexao_vetor, normalize, produtoVetorial
+
+def rotacao(vetor, angulo, sentido, reta):
+    v1 = reta.vetorDiretor
+    v2 = normalize(Vetor(0, 1, - (v1.x/v1.z)))
+    v3 = normalize(produtoVetorial(v1, v2))
+    novaBase = Base(v1, v2, v3)
+
+    novoVetor = mudeBase(vetor, novaBase)
+
+    coseno = cos(angulo)
+    seno = sin(angulo)
+
+    if(sentido == "AH"):
+        return Vetor(novoVetor.x*coseno - seno*novoVetor.y, novoVetor.y*coseno + seno*novoVetor.x, novoVetor.z)
+    return Vetor(novoVetor.x*coseno + seno*novoVetor.y, novoVetor.y*coseno - seno*novoVetor.x, novoVetor.z)
 
 def reflexao_reta(vetor, vetorDiretor):
     return reflexao_vetor(vetor, vetorDiretor)
