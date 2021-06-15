@@ -11,32 +11,32 @@ def deformacao(vetor, fatorX, fatorY, fatorZ):
     return Vetor(vetor.x * fatorX, vetor.y * fatorY, vetor.z * fatorZ)
 
 def cisalhamento(vetor, eixos, fator):
-    if (eixos == "XY")
+    if (eixos == "XY"):
         x = vetor.x + fator*vetor.y
         y = vetor.y
         z = vetor.z
 
-    if (eixos == "XZ")
+    if (eixos == "XZ"):
         x = vetor.x + fator*vetor.z
         y = vetor.y
         z = vetor.z
 
-    if (eixos == "YX")
+    if (eixos == "YX"):
         y = vetor.y + fator*vetor.x
         x = vetor.x
         z = vetor.z
 
-    if (eixos == "YZ")
+    if (eixos == "YZ"):
         y = vetor.y + fator*vetor.z
         x = vetor.x
         z = vetor.z
 
-    if (eixos == "ZX")
+    if (eixos == "ZX"):
         z = vetor.z + fator*vetor.x
         y = vetor.y
         x = vetor.x
 
-    if (eixos == "ZY")
+    if (eixos == "ZY"):
         z = vetor.z + fator*vetor.y
         y = vetor.y
         x = vetor.x
@@ -45,17 +45,17 @@ def cisalhamento(vetor, eixos, fator):
     return vetorCisalhado
 
 def cisalhamento(vetor, eixos, fator1, fator2):
-    if (eixos == "XYZ")
+    if (eixos == "XYZ"):
         x = vetor.x + fator1*vetor.y + fator2*vetor.z
         y = vetor.y
         z = vetor.z
 
-    if (eixos == "YZX")
+    if (eixos == "YZX"):
         y = vetor.y + fator1*vetor.z + fator2*vetor.x
         x = vetor.x
         z = vetor.z
 
-    if (eixos == "ZXY")
+    if (eixos == "ZXY"):
         z = vetor.z + fator1*vetor.x + fator2*vetor.y
         y = vetor.y
         x = vetor.x
