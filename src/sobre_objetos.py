@@ -17,6 +17,17 @@ def projecao(vetor, reta):
     return projecao(vetor, reta.vetorDiretor)
 
 def projecao(vetor, plano):
+
+    n_norma2 = norma2(plano.vetorNormal)
+    proj_u_em_nX = (produtoEscalar(vetor, plano.vetorNormal)/n_norma2) * plano.vetorNormal.x
+    proj_u_em_nY = (produtoEscalar(vetor, plano.vetorNormal)/n_norma2) * plano.vetorNormal.y
+    proj_u_em_nZ = (produtoEscalar(vetor, plano.vetorNormal)/n_norma2) * plano.vetorNormal.z
+
+    vectorProjectionX = vetor.x - proj_u_em_nX
+    vectorProjectionY = vetor.y - proj_u_em_nY
+    vectorProjectionZ = vetor.z - proj_u_em_nZ
+
+    return Vetor(vectorProjectionX, vectorProjectionY, vectorProjectionZ)
     
 def componenteOrtogonais(vetor, plano):
     return projecao(vetor, plano.vetorNormal)
@@ -37,3 +48,15 @@ def formaCartesiana(plano):
     return coeficientes     
 
 def formaCartesiana(reta):
+    a = reta.vetorDiretor.y/reta.vetorDiretor.x
+    b = -1
+    c = 0
+    d = reta.ponto.y - ((reta.vetorDiretor.y/reta.vetorDiretor.x) * reta.ponto.x)   
+
+    e = reta.vetorDiretor.z/reta.vetorDiretor.x
+    f = 0
+    g = -1
+    h = reta.ponto.z - ((reta.vetorDiretor.z/reta.vetorDiretor.x) * reta.ponto.x)
+
+    coeficientes = [[a,b,c,d],[e,f,g,h]]
+    return coeficientes    
