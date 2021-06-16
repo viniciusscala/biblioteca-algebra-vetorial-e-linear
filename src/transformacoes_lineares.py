@@ -1,6 +1,7 @@
 from math import cos, sin
 from estruturas import Vetor, Base
 from ferramentas_basicas import reflexao as reflexao_vetor, normalize, produtoVetorial
+from base import mudeBase
 
 def rotacao(vetor, angulo, sentido, reta):
     v1 = normalize(reta.vetorDiretor)
